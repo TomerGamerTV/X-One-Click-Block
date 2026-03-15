@@ -1,7 +1,8 @@
 # Update Notes
 
-## Version 1.0.1
-- Fixed Firefox validation error by adding mandatory `data_collection_permissions` property.
-- Increased minimum Firefox version to 140.0 to support data collection transparency features.
-- Synchronized versioning across all build artifacts.
+## Version 1.0.2
+- Fixed security vulnerability by removing all `innerHTML` usages and replacing them with safe DOM APIs.
+- Improved extension stability and compliance with Firefox Add-on Store security policies.
+- Cleaned up popup and button injection logic for better performance.
+
 

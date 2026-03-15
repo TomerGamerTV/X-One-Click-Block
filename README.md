@@ -2,7 +2,7 @@
 
 Instantly block users on X (formerly Twitter) with a single click directly from their posts and comments.
 
-**Version:** 1.0.1
+**Version:** 1.0.2
 
 ## Features
 - One-click block icons neatly placed in the action bar of Tweets and comments.

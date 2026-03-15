@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "X One Click Block",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Instantly block users on X with a single click. Created by @TomerGamerTV.",
   "permissions": [
     "storage",

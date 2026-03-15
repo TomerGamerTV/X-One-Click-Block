@@ -48,13 +48,26 @@ class PopupManager {
     el.style.backgroundColor = colors.bg;
     el.style.color = colors.text;
 
-    el.innerHTML = `
-      <span class="x-ocb-popup-text">@${username} has been blocked</span>
-      <button class="x-ocb-popup-undo">Undo</button>
-      <button class="x-ocb-popup-close">
-        <svg viewBox="0 0 24 24"><path d="M13.414 12l5.793-5.793c.39-.39.39-1.023 0-1.414s-1.023-.39-1.414 0L12 10.586 6.207 4.793c-.39-.39-1.023-.39-1.414 0s-.39 1.023 0 1.414L10.586 12l-5.793 5.793c-.39.39-.39 1.023 0 1.414.195.195.45.293.707.293s.512-.098.707-.293L12 13.414l5.793 5.793c.195.195.45.293.707.293s.512-.098.707-.293c.39-.39.39-1.023 0-1.414L13.414 12z"></path></svg>
-      </button>
-    `;
+    const textSpan = document.createElement('span');
+    textSpan.className = 'x-ocb-popup-text';
+    textSpan.textContent = `@${username} has been blocked`;
+    el.appendChild(textSpan);
+
+    const undoBtn = document.createElement('button');
+    undoBtn.className = 'x-ocb-popup-undo';
+    undoBtn.textContent = 'Undo';
+    el.appendChild(undoBtn);
+
+    const closeBtn = document.createElement('button');
+    closeBtn.className = 'x-ocb-popup-close';
+    const closeSvg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+    closeSvg.setAttribute('viewBox', '0 0 24 24');
+    const closePath = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+    closePath.setAttribute('d', 'M13.414 12l5.793-5.793c.39-.39.39-1.023 0-1.414s-1.023-.39-1.414 0L12 10.586 6.207 4.793c-.39-.39-1.023-.39-1.414 0s-.39 1.023 0 1.414L10.586 12l-5.793 5.793c-.39.39-.39 1.023 0 1.414.195.195.45.293.707.293s.512-.098.707-.293L12 13.414l5.793 5.793c.195.195.45.293.707.293s.512-.098.707-.293c.39-.39.39-1.023 0-1.414L13.414 12z');
+    closeSvg.appendChild(closePath);
+    closeBtn.appendChild(closeSvg);
+    el.appendChild(closeBtn);
+
 
     this.container.appendChild(el);
 
@@ -302,7 +315,8 @@ function startPositionTracker() {
 
 // Helper to build the control panel HTML and attach listeners
 function showControlPanel(massBtn, catName, count) {
-    massBtn.innerHTML = '';
+    massBtn.textContent = '';
+
     
     const panel = document.createElement('div');
     panel.className = 'x-ocb-control-panel';
@@ -318,7 +332,15 @@ function showControlPanel(massBtn, catName, count) {
     const resumeBtn = document.createElement('button');
     resumeBtn.className = 'x-ocb-btn-action';
     resumeBtn.title = 'Resume';
-    resumeBtn.innerHTML = '<svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>';
+    resumeBtn.textContent = '';
+
+    const resumeSvg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+    resumeSvg.setAttribute('viewBox', '0 0 24 24');
+    const resumePath = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+    resumePath.setAttribute('d', 'M8 5v14l11-7z');
+    resumeSvg.appendChild(resumePath);
+    resumeBtn.appendChild(resumeSvg);
+
     resumeBtn.addEventListener('click', (e) => {
         e.stopPropagation();
         chrome.runtime.sendMessage({ action: 'resumeQueue' });
@@ -329,7 +351,15 @@ function showControlPanel(massBtn, catName, count) {
     const cancelBtn = document.createElement('button');
     cancelBtn.className = 'x-ocb-btn-action';
     cancelBtn.title = 'Cancel';
-    cancelBtn.innerHTML = '<svg viewBox="0 0 24 24"><path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/></svg>';
+    cancelBtn.textContent = '';
+
+    const cancelSvg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+    cancelSvg.setAttribute('viewBox', '0 0 24 24');
+    const cancelPath = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+    cancelPath.setAttribute('d', 'M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z');
+    cancelSvg.appendChild(cancelPath);
+    cancelBtn.appendChild(cancelSvg);
+
     cancelBtn.addEventListener('click', (e) => {
         e.stopPropagation();
         chrome.runtime.sendMessage({ action: 'cancelQueue' });
@@ -340,7 +370,15 @@ function showControlPanel(massBtn, catName, count) {
     const undoBtn = document.createElement('button');
     undoBtn.className = 'x-ocb-btn-action';
     undoBtn.title = 'Undo All';
-    undoBtn.innerHTML = '<svg viewBox="0 0 24 24"><path d="M12.5 8c-2.65 0-5.05.99-6.9 2.6L2 7v9h9l-3.62-3.62c1.39-1.16 3.16-1.88 5.12-1.88 3.54 0 6.55 2.31 7.6 5.5l2.37-.78C20.47 10.95 16.83 8 12.5 8z"/></svg>';
+    undoBtn.textContent = '';
+
+    const undoSvg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+    undoSvg.setAttribute('viewBox', '0 0 24 24');
+    const undoPath = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+    undoPath.setAttribute('d', 'M12.5 8c-2.65 0-5.05.99-6.9 2.6L2 7v9h9l-3.62-3.62c1.39-1.16 3.16-1.88 5.12-1.88 3.54 0 6.55 2.31 7.6 5.5l2.37-.78C20.47 10.95 16.83 8 12.5 8z');
+    undoSvg.appendChild(undoPath);
+    undoBtn.appendChild(undoSvg);
+
     undoBtn.addEventListener('click', (e) => {
         e.stopPropagation();
         chrome.runtime.sendMessage({ action: 'undoQueue' });
@@ -351,7 +389,15 @@ function showControlPanel(massBtn, catName, count) {
     const closeBtn = document.createElement('button');
     closeBtn.className = 'x-ocb-btn-action';
     closeBtn.title = 'Close';
-    closeBtn.innerHTML = '<svg viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>';
+    closeBtn.textContent = '';
+
+    const closePSvg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+    closePSvg.setAttribute('viewBox', '0 0 24 24');
+    const closePPath = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+    closePPath.setAttribute('d', 'M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z');
+    closePSvg.appendChild(closePPath);
+    closeBtn.appendChild(closePSvg);
+
     closeBtn.addEventListener('click', (e) => {
         e.stopPropagation();
         massBtn.remove();
@@ -377,7 +423,8 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
           stopAutoScraping();
           blockedUsernames.clear();
           if (massBtn) {
-             massBtn.innerHTML = '';
+             massBtn.textContent = '';
+
              massBtn.disabled = false;
              const activeTab = document.querySelector('[role="tab"][aria-selected="true"]');
              massBtn.textContent = `Block All ${activeTab ? activeTab.textContent.trim() : 'All'}`;
@@ -394,7 +441,8 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
               showControlPanel(massBtn, catName, count);
           } else {
               if (!scrapeInterval) startAutoScraping();
-              massBtn.innerHTML = '';
+              massBtn.textContent = '';
+
               massBtn.textContent = `Queuing ${count}... (Click to Pause)`;
               massBtn.disabled = false;
           }
@@ -428,15 +476,20 @@ function injectBlockButtons() {
     const wrapper = document.createElement('div');
     wrapper.className = 'x-ocb-btn-wrapper';
     
-    wrapper.innerHTML = `
-      <div class="x-ocb-btn-inner">
-        <svg viewBox="0 0 24 24" aria-hidden="true" class="x-ocb-btn-icon">
-          <g>
-            <path d="M12 2C6.486 2 2 6.486 2 12s4.486 10 10 10 10-4.486 10-10S17.514 2 12 2zm0 18c-4.411 0-8-3.589-8-8 0-1.921.684-3.682 1.821-5.06l11.24 11.24C15.682 19.316 13.921 20 12 20zm6.179-2.94L6.939 5.82C8.318 4.684 10.079 4 12 4c4.411 0 8 3.589 8 8 0 1.921-.684 3.682-1.821 5.06z"></path>
-          </g>
-        </svg>
-      </div>
-    `;
+      const inner = document.createElement('div');
+      inner.className = 'x-ocb-btn-inner';
+      const btnSvg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+      btnSvg.setAttribute('viewBox', '0 0 24 24');
+      btnSvg.setAttribute('aria-hidden', 'true');
+      btnSvg.className.baseVal = 'x-ocb-btn-icon';
+      const btnG = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+      const btnPath = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+      btnPath.setAttribute('d', 'M12 2C6.486 2 2 6.486 2 12s4.486 10 10 10 10-4.486 10-10S17.514 2 12 2zm0 18c-4.411 0-8-3.589-8-8 0-1.921.684-3.682 1.821-5.06l11.24 11.24C15.682 19.316 13.921 20 12 20zm6.179-2.94L6.939 5.82C8.318 4.684 10.079 4 12 4c4.411 0 8 3.589 8 8 0 1.921-.684 3.682-1.821 5.06z');
+      btnG.appendChild(btnPath);
+      btnSvg.appendChild(btnG);
+      inner.appendChild(btnSvg);
+      wrapper.appendChild(inner);
+
 
     // Extract Username
     let username = null;
@@ -504,15 +557,33 @@ function injectBlockButtons() {
     }
 
     // In user cells we have more space, make it a standard square/circle
-    wrapper.innerHTML = `
-      <div class="x-ocb-btn-inner" style="border: 1px solid rgb(83, 100, 113); margin-right: 8px; width: 34px; height: 34px; display: flex; align-items: center; justify-content: center; border-radius: 9999px;">
-        <svg viewBox="0 0 24 24" aria-hidden="true" class="x-ocb-btn-icon" style="width: 18px; height: 18px;">
-          <g>
-            <path d="M12 2C6.486 2 2 6.486 2 12s4.486 10 10 10 10-4.486 10-10S17.514 2 12 2zm0 18c-4.411 0-8-3.589-8-8 0-1.921.684-3.682 1.821-5.06l11.24 11.24C15.682 19.316 13.921 20 12 20zm6.179-2.94L6.939 5.82C8.318 4.684 10.079 4 12 4c4.411 0 8 3.589 8 8 0 1.921-.684 3.682-1.821 5.06z"></path>
-          </g>
-        </svg>
-      </div>
-    `;
+    const cellInner = document.createElement('div');
+    cellInner.className = 'x-ocb-btn-inner';
+    cellInner.style.border = '1px solid rgb(83, 100, 113)';
+    cellInner.style.marginRight = '8px';
+    cellInner.style.width = '34px';
+    cellInner.style.height = '34px';
+    cellInner.style.display = 'flex';
+    cellInner.style.alignItems = 'center';
+    cellInner.style.justifyContent = 'center';
+    cellInner.style.borderRadius = '9999px';
+    
+    const cellSvg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+    cellSvg.setAttribute('viewBox', '0 0 24 24');
+    cellSvg.setAttribute('aria-hidden', 'true');
+    cellSvg.className.baseVal = 'x-ocb-btn-icon';
+    cellSvg.style.width = '18px';
+    cellSvg.style.height = '18px';
+    
+    const cellG = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+    const cellPath = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+    cellPath.setAttribute('d', 'M12 2C6.486 2 2 6.486 2 12s4.486 10 10 10 10-4.486 10-10S17.514 2 12 2zm0 18c-4.411 0-8-3.589-8-8 0-1.921.684-3.682 1.821-5.06l11.24 11.24C15.682 19.316 13.921 20 12 20zm6.179-2.94L6.939 5.82C8.318 4.684 10.079 4 12 4c4.411 0 8 3.589 8 8 0 1.921-.684 3.682-1.821 5.06z');
+    cellG.appendChild(cellPath);
+    cellSvg.appendChild(cellG);
+    cellInner.appendChild(cellSvg);
+    wrapper.appendChild(cellInner);
+    
+
 
     // Try to extract username from the cell
     let username = null;
@@ -563,15 +634,26 @@ function injectBlockButtons() {
     const wrapper = document.createElement('div');
     wrapper.className = 'x-ocb-btn-wrapper x-ocb-profile-btn';
 
-    wrapper.innerHTML = `
-      <div class="x-ocb-btn-inner" style="border: 1px solid rgb(83, 100, 113); cursor: pointer;">
-        <svg viewBox="0 0 24 24" aria-hidden="true" class="x-ocb-btn-icon" style="width: 18px; height: 18px;">
-          <g>
-            <path d="M12 2C6.486 2 2 6.486 2 12s4.486 10 10 10 10-4.486 10-10S17.514 2 12 2zm0 18c-4.411 0-8-3.589-8-8 0-1.921.684-3.682 1.821-5.06l11.24 11.24C15.682 19.316 13.921 20 12 20zm6.179-2.94L6.939 5.82C8.318 4.684 10.079 4 12 4c4.411 0 8 3.589 8 8 0 1.921-.684 3.682-1.821 5.06z"></path>
-          </g>
-        </svg>
-      </div>
-    `;
+    const profileInner = document.createElement('div');
+    profileInner.className = 'x-ocb-btn-inner';
+    profileInner.style.border = '1px solid rgb(83, 100, 113)';
+    profileInner.style.cursor = 'pointer';
+
+    const profileSvg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+    profileSvg.setAttribute('viewBox', '0 0 24 24');
+    profileSvg.setAttribute('aria-hidden', 'true');
+    profileSvg.className.baseVal = 'x-ocb-btn-icon';
+    profileSvg.style.width = '18px';
+    profileSvg.style.height = '18px';
+
+    const profileG = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+    const profilePath = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+    profilePath.setAttribute('d', 'M12 2C6.486 2 2 6.486 2 12s4.486 10 10 10 10-4.486 10-10S17.514 2 12 2zm0 18c-4.411 0-8-3.589-8-8 0-1.921.684-3.682 1.821-5.06l11.24 11.24C15.682 19.316 13.921 20 12 20zm6.179-2.94L6.939 5.82C8.318 4.684 10.079 4 12 4c4.411 0 8 3.589 8 8 0 1.921-.684 3.682-1.821 5.06z');
+    profileG.appendChild(profilePath);
+    profileSvg.appendChild(profileG);
+    profileInner.appendChild(profileSvg);
+    wrapper.appendChild(profileInner);
+
 
     const username = window.location.pathname.split('/')[1];
     if (username && !['search', 'explore', 'notifications', 'messages', 'home', 'settings', 'i'].includes(username)) {

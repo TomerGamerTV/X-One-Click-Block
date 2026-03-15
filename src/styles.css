@@ -1,0 +1,253 @@
+/* x-one-click-block styles */
+
+#x-ocb-popup-container {
+  position: fixed;
+  top: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 99999999;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  pointer-events: none;
+}
+
+.x-ocb-popup {
+  pointer-events: auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 20px;
+  border-radius: 9999px;
+  background-color: var(--colors-background, #000); /* default to black if var not found, x usually uses black for dark */
+  color: var(--colors-text, #fff);
+  box-shadow: 0 0 12px rgba(255, 255, 255, 0.2);
+  min-width: 320px;
+  opacity: 0;
+  transform: translateY(-20px) scale(0.95);
+  transition: opacity 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+}
+
+/* Light mode fallback detection */
+@media (prefers-color-scheme: light) {
+  .x-ocb-popup {
+    background-color: #fff;
+    color: #0f1419;
+    box-shadow: 0 0 12px rgba(0, 0, 0, 0.2);
+  }
+}
+
+.x-ocb-popup.show {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+.x-ocb-popup-text {
+  flex-grow: 1;
+  margin-right: 15px;
+}
+
+.x-ocb-popup-undo {
+  color: rgb(29, 155, 240);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  font-weight: 700;
+  font-size: 15px;
+  padding: 0 10px;
+}
+
+.x-ocb-popup-undo:hover {
+  text-decoration: underline;
+}
+
+.x-ocb-popup-close {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4px;
+  border-radius: 50%;
+  color: var(--colors-text, #fff);
+  margin-left: 8px;
+}
+
+@media (prefers-color-scheme: light) {
+  .x-ocb-popup-close {
+    color: #0f1419;
+  }
+}
+
+.x-ocb-popup-close:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+@media (prefers-color-scheme: light) {
+  .x-ocb-popup-close:hover {
+    background-color: rgba(0, 0, 0, 0.1);
+  }
+}
+
+.x-ocb-popup-close svg {
+  width: 18px;
+  height: 18px;
+  fill: currentColor;
+}
+
+/* Block Button */
+.x-ocb-btn-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  background: transparent;
+  border: none;
+  padding: 0;
+  outline: none;
+  margin-left: 0;
+}
+
+/* Group wrapper — used in follower/following lists */
+.x-ocb-btn-group {
+    display: flex;
+    flex-grow: 1;
+    justify-content: flex-end; /* match x's flex layout */
+    align-items: center;
+}
+
+/* Profile header button — sits inline with X's native circular icon buttons */
+.x-ocb-profile-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    align-self: center;
+    flex-grow: 0;
+    flex-shrink: 0;
+    margin-right: 8px;
+}
+
+.x-ocb-btn-inner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 34.75px;
+  height: 34.75px;
+  border-radius: 9999px;
+  transition: background-color 0.2s ease;
+}
+
+.x-ocb-btn-wrapper:hover .x-ocb-btn-inner, .x-ocb-btn-wrapper:focus-visible .x-ocb-btn-inner {
+  background-color: rgba(244, 33, 46, 0.1);
+}
+
+.x-ocb-btn-icon {
+  width: 1.25em; /* 20px relative to parent */
+  height: 1.25em;
+  fill: currentColor;
+  color: rgb(113, 118, 123);
+  transition: color 0.2s ease, transform 0.2s ease;
+}
+
+.x-ocb-btn-wrapper:hover .x-ocb-btn-icon, .x-ocb-btn-wrapper:focus-visible .x-ocb-btn-icon {
+  color: rgb(244, 33, 46);
+}
+
+.x-ocb-btn-wrapper.pressed .x-ocb-btn-icon {
+  color: rgb(244, 33, 46);
+  transform: scale(0.85);
+}
+
+/* On mobile, action bar items don't have exactly 34.75 wrapper sometimes. Flex will handle it. */
+@media (max-width: 500px) {
+  .x-ocb-btn-inner {
+    width: 32px;
+    height: 32px;
+  }
+}
+
+/* Mass Block Controls and Animations */
+
+.x-ocb-pulsing-border {
+  box-shadow: 0 4px 20px rgba(244, 33, 46, 0.8) !important;
+  border-left: 2px solid rgb(244, 33, 46) !important;
+  border-right: 2px solid rgb(244, 33, 46) !important;
+  border-bottom: 2px solid rgb(244, 33, 46) !important;
+  border-top: none !important;
+  border-radius: 0 0 16px 16px !important; 
+  transition: all 0.3s ease;
+  animation: pulseRed 2s infinite;
+}
+
+@keyframes pulseRed {
+  0% { box-shadow: 0 4px 10px rgba(244, 33, 46, 0.5); }
+  50% { box-shadow: 0 4px 30px rgba(244, 33, 46, 1); }
+  100% { box-shadow: 0 4px 10px rgba(244, 33, 46, 0.5); }
+}
+
+.x-ocb-scroll-arrow {
+  position: fixed;
+  top: 50%;
+  transform: translateX(-50%) translateY(-50%);
+  pointer-events: none;
+  z-index: 99999;
+}
+
+@keyframes bounceDown {
+  0%, 100% { transform: translateX(-50%) translateY(-50%); }
+  50% { transform: translateX(-50%) translateY(0%); }
+}
+
+@keyframes fadeAndBounce {
+  0% { opacity: 0; transform: translateX(-50%) translateY(-50%); }
+  25% { opacity: 1; transform: translateX(-50%) translateY(-50%); }
+  50% { opacity: 1; transform: translateX(-50%) translateY(0%); }
+  75% { opacity: 1; transform: translateX(-50%) translateY(-50%); }
+  100% { opacity: 0; transform: translateX(-50%) translateY(-50%); }
+}
+
+.fade-bounce {
+  animation: fadeAndBounce 2s ease-in-out forwards;
+}
+
+.constant-bounce {
+  opacity: 1;
+  animation: bounceDown 1.5s infinite;
+}
+
+/* Control Panel */
+.x-ocb-control-panel {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+.x-ocb-resume-text {
+  margin-right: 8px;
+}
+.x-ocb-btn-action {
+  background: rgba(255,255,255,0.2);
+  border: none;
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: white;
+  transition: background 0.2s;
+  padding: 6px;
+}
+.x-ocb-btn-action:hover {
+  background: rgba(255,255,255,0.4);
+}
+.x-ocb-btn-action svg {
+  fill: currentColor;
+  width: 100%;
+  height: 100%;
+}

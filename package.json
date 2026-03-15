@@ -1,0 +1,14 @@
+{
+  "name": "x-one-click-block",
+  "version": "1.0.0",
+  "description": "Cross-platform extension to instantly block users on X.",
+  "scripts": {
+    "build": "bun run scripts/build.js"
+  },
+  "dependencies": {
+    "adm-zip": "^0.5.10"
+  },
+  "devDependencies": {
+    "sharp": "^0.34.5"
+  }
+}

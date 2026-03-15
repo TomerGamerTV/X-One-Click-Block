@@ -1,0 +1,31 @@
+{
+  "manifest_version": 3,
+  "name": "X One Click Block",
+  "version": "1.0.1",
+  "description": "Instantly block users on X with a single click. Created by @TomerGamerTV.",
+  "permissions": [
+    "storage",
+    "cookies",
+    "webRequest"
+  ],
+  "host_permissions": [
+    "*://*.twitter.com/*",
+    "*://*.x.com/*"
+  ],
+  "background": {
+    "service_worker": "background.js",
+    "type": "module"
+  },
+  "content_scripts": [
+    {
+      "matches": ["*://*.twitter.com/*", "*://*.x.com/*"],
+      "js": ["content.js"],
+      "css": ["styles.css"],
+      "run_at": "document_end"
+    }
+  ],
+  "icons": {
+    "48": "icon48.png",
+    "128": "icon128.png"
+  }
+}

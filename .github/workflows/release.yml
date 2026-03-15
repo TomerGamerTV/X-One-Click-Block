@@ -1,0 +1,46 @@
+name: Build and Release Extension
+
+on:
+  push:
+    tags:
+      - 'v*' # Push events to matching v*, i.e. v1.0, v20.15.10
+  workflow_dispatch: # Allow manual triggers
+
+jobs:
+  build-and-release:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write # Needed to create releases
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v1
+        with:
+          bun-version: latest
+
+      - name: Install dependencies
+        run: bun install
+
+      - name: Build extension zip files
+        run: bun run build
+
+      - name: Get package version
+        id: package-version
+        run: echo "VERSION=$(bun -e "console.log(require('./package.json').version)")" >> "$GITHUB_OUTPUT"
+
+      - name: Create Release
+        uses: softprops/action-gh-release@v1
+        with:
+          name: X One Click Block v${{ steps.package-version.outputs.VERSION }}
+          draft: false
+          prerelease: false
+          files: |
+            chrome-build-v${{ steps.package-version.outputs.VERSION }}.zip
+            firefox-build-v${{ steps.package-version.outputs.VERSION }}.zip
+            source-chrome-v${{ steps.package-version.outputs.VERSION }}.zip
+            source-firefox-v${{ steps.package-version.outputs.VERSION }}.zip
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

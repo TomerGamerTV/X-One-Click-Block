@@ -1,8 +1,5 @@
 # Update Notes
 
-## Version 1.0.1
-- Fixed block button alignment on profile pages — the button now sits correctly inline with X's native circular icon buttons (3-dots, message, bell, follow).
-
 ## Version 1.0.0
 - Initial release.
 - Added block icon natively inside X posts and comments.

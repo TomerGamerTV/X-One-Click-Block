@@ -125,10 +125,12 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    align-self: center;
     flex-grow: 0;
     flex-shrink: 0;
     margin-right: 8px;
+    margin-bottom: 12px; /* Key to matching X's header alignment */
+    height: 36px;
+    width: 36px;
 }
 
 .x-ocb-btn-inner {

@@ -564,7 +564,7 @@ function injectBlockButtons() {
     wrapper.className = 'x-ocb-btn-wrapper x-ocb-profile-btn';
 
     wrapper.innerHTML = `
-      <div class="x-ocb-btn-inner" style="border: 1px solid rgb(83, 100, 113); width: 34px; height: 34px; cursor: pointer;">
+      <div class="x-ocb-btn-inner" style="border: 1px solid rgb(83, 100, 113); cursor: pointer;">
         <svg viewBox="0 0 24 24" aria-hidden="true" class="x-ocb-btn-icon" style="width: 18px; height: 18px;">
           <g>
             <path d="M12 2C6.486 2 2 6.486 2 12s4.486 10 10 10 10-4.486 10-10S17.514 2 12 2zm0 18c-4.411 0-8-3.589-8-8 0-1.921.684-3.682 1.821-5.06l11.24 11.24C15.682 19.316 13.921 20 12 20zm6.179-2.94L6.939 5.82C8.318 4.684 10.079 4 12 4c4.411 0 8 3.589 8 8 0 1.921-.684 3.682-1.821 5.06z"></path>

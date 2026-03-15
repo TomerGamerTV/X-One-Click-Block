@@ -87,7 +87,10 @@ function buildFirefox() {
   manifest.browser_specific_settings = {
     gecko: {
       id: "x-one-click-block@tomergamertv.com",
-      strict_min_version: "109.0"
+      strict_min_version: "140.0",
+      data_collection_permissions: {
+        required: ["none"]
+      }
     }
   };
   fs.writeFileSync(path.join(ffDir, 'manifest.json'), JSON.stringify(manifest, null, 2));
